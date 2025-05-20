@@ -9,13 +9,12 @@
 </head>
 <body>
 
-  <!-- Hintergrund & Sterne -->
   <div class="stars"></div>
 
   <div class="container">
     <img src="logo.png" alt="ChainTrust Logo" class="logo" />
 
-    <!-- Social-Links -->
+    <!-- Social Icons -->
     <div class="social-links">
       <a href="https://x.com/TrustChainAI" target="_blank" class="social-btn" aria-label="Twitter">
         <img src="twitter.svg" alt="Twitter" />
@@ -31,20 +30,21 @@
     <h1>ChainTrust</h1>
     <p>Multichain Smart Contract Risk Scanner</p>
 
-    <!-- Input mit Clear-Button rechts -->
+    <!-- Input + Clear Button -->
     <div class="input-row">
       <input id="contractInput" type="text" placeholder="Paste Token Contract Address" oninput="toggleClearButton()" />
-      <button id="clearBtn" class="clear-button" onclick="clearInput()" style="display: none;">×</button>
+      <button id="clearBtn" class="clean-button clear" onclick="clearInput()" style="display: none;">CLEAR</button>
     </div>
 
     <div class="button-wrap">
       <button class="clean-button" onclick="scanToken()">Scan Token</button>
     </div>
 
-    <!-- Ergebnis + Spinner -->
+    <!-- Loading Spinner + Result Box -->
     <div id="loadingSpinner" style="display:none;">
       <div class="spinner"></div>
     </div>
+
     <div id="resultBox" class="result"></div>
   </div>
 
