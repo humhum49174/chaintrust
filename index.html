@@ -14,36 +14,31 @@
   <div class="container">
     <img src="logo.png" alt="ChainTrust Logo" class="logo" />
 
+    <!-- Social Icons -->
     <div class="social-links">
-      <a href="https://x.com/ChainTrust_fun" target="_blank" class="social-btn" aria-label="Twitter">
-        <img src="twitter.svg" alt="Twitter" />
-      </a>
-      <a href="https://t.me/TrustChainAI" target="_blank" class="social-btn" aria-label="Telegram">
-        <img src="telegram.svg" alt="Telegram" />
-      </a>
-      <a href="https://discord.gg/TrustChainAI" target="_blank" class="social-btn" aria-label="Discord">
-        <img src="discord.svg" alt="Discord" />
-      </a>
+      <a href="#" class="social-btn"><img src="twitter.svg" alt="X"></a>
+      <a href="#" class="social-btn"><img src="telegram.svg" alt="Telegram"></a>
+      <a href="#" class="social-btn"><img src="discord.svg" alt="Discord"></a>
     </div>
 
     <h1>ChainTrust</h1>
     <p>Multichain Smart Contract Risk Scanner</p>
 
-    <!-- Input + Clear Button nebeneinander -->
+    <!-- INPUT + CLEAR -->
     <div class="input-wrapper">
-      <input type="text" id="contractInput" placeholder="Paste Token Contract Address" oninput="toggleClearButton()" />
-      <button id="clearButton" onclick="clearInput()">×</button>
+      <input id="contractInput" type="text" placeholder="Paste Token Contract Address" oninput="toggleClearButton()" />
+      <button id="clearBtn" class="clear-btn-text" onclick="clearInput()" style="display: none;">×</button>
     </div>
 
     <div class="button-wrap">
       <button class="clean-button" onclick="scanToken()">Scan Token</button>
     </div>
 
-    <div id="loadingSpinner">
+    <div id="loadingSpinner" style="display:none;">
       <div class="spinner"></div>
     </div>
 
-    <pre id="resultBox"></pre>
+    <div id="resultBox" class="result"></div>
   </div>
 
   <footer>
@@ -51,20 +46,23 @@
   </footer>
 
   <script>
-    function clearInput() {
-      document.getElementById('contractInput').value = '';
-      toggleClearButton();
+    function toggleClearButton() {
+      const input = document.getElementById("contractInput");
+      const clearBtn = document.getElementById("clearBtn");
+      clearBtn.style.display = input.value.trim() ? "inline" : "none";
     }
 
-    function toggleClearButton() {
-      const input = document.getElementById('contractInput');
-      const button = document.getElementById('clearButton');
-      button.style.display = input.value ? 'block' : 'none';
+    function clearInput() {
+      const input = document.getElementById("contractInput");
+      input.value = "";
+      document.getElementById("clearBtn").style.display = "none";
+      document.getElementById("resultBox").style.display = "none";
+      document.getElementById("resultBox").innerHTML = "";
     }
 
     function scanToken() {
-      // Deine Scan-Logik hier
-      alert('Scanning...');
+      // Hier kommt später dein Scan-Code mit API
+      alert("Scanning token...");
     }
   </script>
 </body>
