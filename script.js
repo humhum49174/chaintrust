@@ -37,7 +37,7 @@ async function scanToken() {
   box.style.display = "block";
 
   if (!token) {
-    box.innerHTML = "❗ Please enter a contract address.";
+    box.innerHTML = "<span style='color:#f66;'>❗ Please enter a contract address.</span>";
     return;
   }
 
@@ -78,7 +78,7 @@ async function scanToken() {
       const aiRisk = generateAIRiskText(d, c);
 
       box.innerHTML = `
-        <div class="result-card evm">
+        <div class="result-card evm visible">
           <div class="result-header">
             <img src="${logo}" class="chain-icon" onerror="this.src='${chain.icon}'" />
             <h3>${chain.name.toUpperCase()} Token</h3>
@@ -101,11 +101,6 @@ async function scanToken() {
           <div class="result-risk"><strong>⚠️ Risk Factors:</strong> ${aiRisk}</div>
         </div>
       `;
-
-      setTimeout(() => {
-        const card = document.querySelector(".result-card");
-        if (card) card.classList.add("visible");
-      }, 100);
 
       showLoading(false);
       return;
