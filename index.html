@@ -5,79 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ChainTrust</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
-    #loadingSpinner {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 9999;
-      display: none;
-    }
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 6px solid #00ffff33;
-      border-top: 6px solid #00ffff;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    header.sticky {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: #0b0f1a;
-      box-shadow: 0 2px 6px #00ffff44;
-      padding: 10px 0;
-    }
-    .result-risk-ai {
-      color: #ff9f43;
-      margin-top: 10px;
-      font-style: italic;
-      text-align: center;
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
+  <!-- 3D-Visualisierung -->
   <script type="module" src="https://x.com/TrustChainAI@1.9.96/build/spline-viewer.js"></script>
   <spline-viewer url="https://x.com/TrustChainAI"></spline-viewer>
 
   <div class="stars"></div>
 
-  <header class="sticky">
-    <img src="logo.png" alt="ChainTrust Logo" class="logo" />
-    <div class="social-links">
-      <a href="https://x.com/TrustChainAI" target="_blank" class="social-btn"><img src="twitter.svg" alt="Twitter" /></a>
-      <a href="https://t.me/TrustChainAI" target="_blank" class="social-btn"><img src="telegram.svg" alt="Telegram" /></a>
-      <a href="https://discord.gg/TrustChainAI" target="_blank" class="social-btn"><img src="discord.svg" alt="Discord" /></a>
-    </div>
-  </header>
-
+  <!-- Hauptbereich -->
   <div class="container">
+    <img src="logo.png" alt="ChainTrust Logo" class="logo" />
+
+    <!-- Socials -->
+    <div class="social-links">
+      <a href="https://x.com/TrustChainAI" target="_blank" class="social-btn" aria-label="Twitter">
+        <img src="twitter.svg" alt="Twitter" />
+      </a>
+      <a href="https://t.me/TrustChainAI" target="_blank" class="social-btn" aria-label="Telegram">
+        <img src="telegram.svg" alt="Telegram" />
+      </a>
+      <a href="https://discord.gg/TrustChainAI" target="_blank" class="social-btn" aria-label="Discord">
+        <img src="discord.svg" alt="Discord" />
+      </a>
+    </div>
+
     <h1>ChainTrust</h1>
     <p>Multichain Smart Contract Risk Scanner</p>
+
     <input type="text" id="contractInput" placeholder="Paste Token Contract Address" />
+
     <div class="button-wrap">
       <button class="clean-button" onclick="scanToken()">Scan Token</button>
     </div>
-    <div id="loadingSpinner"><div class="spinner"></div></div>
+
+    <!-- Spinner -->
+    <div id="loadingSpinner">
+      <div class="spinner"></div>
+    </div>
+
     <pre id="resultBox"></pre>
-    <footer>Powered by ChainTrust Security Engine | 2025</footer>
   </div>
 
+  <footer>
+    Powered by ChainTrust Security Engine | ChainTrust 2025
+  </footer>
+
   <script src="script.js"></script>
-  <script>
-    function showLoading(show) {
-      document.getElementById('loadingSpinner').style.display = show ? 'block' : 'none';
-    }
-  </script>
 </body>
 </html>
