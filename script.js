@@ -8,9 +8,9 @@ const chains = [
   { id: 324, name: "zksync", icon: "icons/zksync.svg" }
 ];
 
-function tag(value, labelIfTrue = "Yes", labelIfFalse = "No") {
-  if (value === "1" || value === true) return `<span class="tag warning">${labelIfTrue}</span>`;
-  if (value === "0" || value === false) return `<span class="tag success">${labelIfFalse}</span>`;
+function tag(value, good = "No", bad = "Yes") {
+  if (value === "1" || value === true) return `<span class="tag warning">${bad}</span>`;
+  if (value === "0" || value === false) return `<span class="tag success">${good}</span>`;
   return `<span class="tag na">N/A</span>`;
 }
 
@@ -36,7 +36,7 @@ async function scanToken() {
         appr,
         honeypot,
         phishing,
-        dexscreener
+        dex
       ] = await Promise.all([
         fetch(`${baseURL}/token_security/${chain.id}?contract_addresses=${token}`).then(r => r.json()),
         fetch(`${baseURL}/contract_security/${chain.id}?contract_addresses=${token}`).then(r => r.json()),
@@ -53,19 +53,19 @@ async function scanToken() {
       const a = appr.result?.[tokenLC];
       const h = honeypot.result?.[tokenLC];
       const p = phishing.result?.[tokenLC];
-      const dex = dexscreener.pairs?.[0];
+      const dexData = dex.pairs?.[0];
 
       const logo = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${chain.name}/assets/${token}/logo.png`;
 
-      const riskFlags = [];
-      if (d.can_mint === "1") riskFlags.push("🔴 Can Mint");
-      if (d.can_blacklist === "1") riskFlags.push("🛑 Can Blacklist");
-      if (c?.is_upgradable === "1") riskFlags.push("⚠️ Upgradeable");
-      if (c?.selfdestruct === "1") riskFlags.push("💣 Selfdestruct Enabled");
+      const flags = [];
+      if (d.can_mint === "1") flags.push("🚨 Can Mint");
+      if (d.can_blacklist === "1") flags.push("⚠️ Can Blacklist");
+      if (c?.is_upgradable === "1") flags.push("🛠️ Upgradeable");
+      if (c?.selfdestruct === "1") flags.push("💣 Selfdestruct");
 
-      const riskSummary = riskFlags.length > 0
-        ? `⚠️ Risk Factors: ${riskFlags.join(", ")}`
-        : `✅ No major risks detected`;
+      const riskText = flags.length
+        ? `⚠️ Risk Factors: ${flags.join(", ")}`
+        : `✅ No critical risks detected`;
 
       box.innerHTML = `
         <div class="result-card evm">
@@ -75,23 +75,20 @@ async function scanToken() {
           </div>
           <div class="result-body">
             <div class="result-row"><span>Buy/Sell Tax:</span><span>${d.buy_tax}% / ${d.sell_tax}%</span></div>
-            <div class="result-row"><span>Owner Address:</span><span>${d.owner_address}</span></div>
+            <div class="result-row"><span>Owner:</span><span>${d.owner_address}</span></div>
             <div class="result-row"><span>Can Mint:</span>${tag(d.can_mint)}</div>
             <div class="result-row"><span>Can Blacklist:</span>${tag(d.can_blacklist)}</div>
-            <div class="result-row"><span>Open Source:</span>${tag(d.is_open_source)}</div>
-            <div class="result-row"><span>Proxy:</span>${tag(c?.is_proxy)}</div>
             <div class="result-row"><span>Upgradeable:</span>${tag(c?.is_upgradable)}</div>
             <div class="result-row"><span>Self Destruct:</span>${tag(c?.selfdestruct)}</div>
-            <div class="result-row"><span>Honeypot:</span>${tag(h?.is_honeypot === "0", "No", "Yes")}</div>
-            <div class="result-row"><span>Phishing:</span>${tag(p?.risk, "Yes", "No")}</div>
+            <div class="result-row"><span>Open Source:</span>${tag(d.is_open_source)}</div>
+            <div class="result-row"><span>Honeypot:</span>${tag(h?.is_honeypot === \"0\", \"No\", \"Yes\")}</div>
             <div class="result-row"><span>Approval Risk:</span>${tag(a?.is_approval_check_needed)}</div>
-            <div class="result-row"><span>Price:</span><span>${dex?.priceUsd ? `$${parseFloat(dex.priceUsd).toFixed(6)}` : "N/A"}</span></div>
-            <div class="result-row"><span>Liquidity:</span><span>${dex?.liquidity?.usd ? `$${Math.round(dex.liquidity.usd)}` : "N/A"}</span></div>
-            <div class="result-row"><span>Volume 24h:</span><span>${dex?.volume?.h24 ? `$${Math.round(dex.volume.h24)}` : "N/A"}</span></div>
+            <div class="result-row"><span>Phishing:</span>${tag(p?.risk, \"Yes\", \"No\")}</div>
+            <div class="result-row"><span>Price:</span><span>${dexData?.priceUsd ? `$${parseFloat(dexData.priceUsd).toFixed(6)}` : "N/A"}</span></div>
+            <div class="result-row"><span>Liquidity:</span><span>${dexData?.liquidity?.usd ? `$${Math.round(dexData.liquidity.usd)}` : "N/A"}</span></div>
+            <div class="result-row"><span>24h Volume:</span><span>${dexData?.volume?.h24 ? `$${Math.round(dexData.volume.h24)}` : "N/A"}</span></div>
           </div>
-          <div class="result-risk">
-            <strong>${riskSummary}</strong>
-          </div>
+          <div class="result-risk"><strong>${riskText}</strong></div>
         </div>
       `;
       return;
@@ -100,5 +97,5 @@ async function scanToken() {
     }
   }
 
-  document.getElementById("resultBox").innerHTML = `<div class="result-card"><strong>❌ Token not found or no data.</strong></div>`;
+  box.innerHTML = `<div class="result-card"><strong>❌ Token not found or unsupported chain.</strong></div>`;
 }
