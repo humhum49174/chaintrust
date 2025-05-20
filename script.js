@@ -16,13 +16,16 @@ function tag(value, successLabel = "Yes", failLabel = "No") {
 async function scanToken() {
   const token = document.getElementById("contractInput").value.trim();
   const box = document.getElementById("resultBox");
-  box.style.display = "block";
-  box.innerHTML = "🔄 Scanning...";
+  const spinner = document.getElementById("loadingSpinner");
 
   if (!token) {
     box.innerHTML = `<p style="color: #ff4d4d; margin-top: 20px;">❗ Please enter a contract address.</p>`;
+    box.style.display = "block";
     return;
   }
+
+  box.style.display = "none";
+  spinner.style.display = "block";
 
   let found = false;
 
@@ -65,7 +68,12 @@ async function scanToken() {
           </div>
           <div class="result-body">
             <div class="result-row"><span>Buy/Sell Tax:</span><span>${data.buy_tax}% / ${data.sell_tax}%</span></div>
-            <div class="result-row"><span>Owner:</span><span>${data.owner_address}</span></div>
+            <div class="result-row"><span>Owner:</span>
+              <span>
+                ${data.owner_address}
+                <button class="copy-btn" onclick="navigator.clipboard.writeText('${data.owner_address}')">📋</button>
+              </span>
+            </div>
             <div class="result-row"><span>Can Mint:</span>${tag(data.can_mint)}</div>
             <div class="result-row"><span>Can Blacklist:</span>${tag(data.can_blacklist)}</div>
             <div class="result-row"><span>Upgradeable:</span>${tag(contractData?.is_upgradable)}</div>
@@ -82,19 +90,20 @@ async function scanToken() {
         </div>
       `;
 
-      // Scroll to results
+      spinner.style.display = "none";
+      box.style.display = "block";
       box.scrollIntoView({ behavior: "smooth" });
 
-      // Animate each .result-row
+      // Animate result rows
       const rows = document.querySelectorAll(".result-row");
       rows.forEach((row, i) => {
         row.style.opacity = 0;
         row.style.transform = "translateY(10px)";
         setTimeout(() => {
+          row.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
           row.style.opacity = 1;
           row.style.transform = "translateY(0)";
-          row.style.transition = "all 0.5s ease";
-        }, 100 * i);
+        }, 150 + 100 * i);
       });
 
       break;
@@ -104,6 +113,12 @@ async function scanToken() {
   }
 
   if (!found) {
-    box.innerHTML = `<div class="result-card"><strong>❌ Token not found or no security data available.</strong></div>`;
+    spinner.style.display = "none";
+    box.style.display = "block";
+    box.innerHTML = `
+      <div class="result-card">
+        <strong>❌ Token not found or unsupported chain.</strong><br />
+        🔎 Make sure the address is correct and deployed.
+      </div>`;
   }
 }
