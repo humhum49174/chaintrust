@@ -302,4 +302,35 @@ footer {
   .logo { width: 140px; }
 }
 
+.input-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  position: relative;
+}
+
+.input-row input {
+  padding-right: 38px;
+}
+
+.clear-button {
+  position: absolute;
+  right: 10px;
+  padding: 0 8px;
+  font-size: 20px;
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.clear-button:hover {
+  color: #fff;
+}
 
