@@ -9,6 +9,7 @@
 </head>
 <body>
 
+  <!-- Optional: Sterne-Hintergrund -->
   <div class="stars"></div>
 
   <div class="container">
@@ -30,17 +31,18 @@
     <h1>ChainTrust</h1>
     <p>Multichain Smart Contract Risk Scanner</p>
 
-    <!-- Input + Clear Button -->
+    <!-- INPUT + CLEAR (clean style) -->
     <div class="input-row">
       <input id="contractInput" type="text" placeholder="Paste Token Contract Address" oninput="toggleClearButton()" />
-      <button id="clearBtn" class="clean-button clear" onclick="clearInput()" style="display: none;">CLEAR</button>
+      <button id="clearBtn" class="clear-btn-text" onclick="clearInput()" style="display: none;">×</button>
     </div>
 
+    <!-- SCAN BUTTON -->
     <div class="button-wrap">
       <button class="clean-button" onclick="scanToken()">Scan Token</button>
     </div>
 
-    <!-- Spinner + Result -->
+    <!-- Spinner + Ergebnis -->
     <div id="loadingSpinner" style="display:none;">
       <div class="spinner"></div>
     </div>
@@ -52,12 +54,13 @@
     Powered by ChainTrust Security Engine | ChainTrust 2025
   </footer>
 
+  <!-- JS -->
   <script src="script.js"></script>
   <script>
     function toggleClearButton() {
       const input = document.getElementById("contractInput");
       const clearBtn = document.getElementById("clearBtn");
-      clearBtn.style.display = input.value.trim() ? "inline-flex" : "none";
+      clearBtn.style.display = input.value.trim() ? "inline" : "none";
     }
 
     function clearInput() {
