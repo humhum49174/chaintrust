@@ -311,3 +311,24 @@ footer {
   input { font-size: 14px; padding: 12px; }
   .logo { width: 140px; }
 }
+
+.clear-btn-text {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #00ffff;
+  font-size: 13px;
+  font-weight: bold;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: opacity 0.2s ease;
+}
+
+.clear-btn-text:hover {
+  opacity: 0.7;
+}
