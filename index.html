@@ -36,9 +36,10 @@
     <p>Multichain Smart Contract Risk Scanner</p>
 
     <div class="input-group">
-      <input type="text" id="contractInput" placeholder="Paste Token Contract Address" />
-      <button class="clear-button" onclick="clearInput()">✖</button>
-    </div>
+  <input type="text" id="contractInput" placeholder="Paste Token Contract Address" oninput="toggleClearButton()" />
+  <button id="clearBtn" class="clear-button" onclick="clearInput()" style="display: none;">✖</button>
+</div>
+
 
     <div class="button-wrap">
       <button class="clean-button" onclick="scanToken()">Scan Token</button>
