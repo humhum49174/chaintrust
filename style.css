@@ -12,7 +12,6 @@ body {
   min-height: 100vh;
 }
 
-/* === Hintergrundsterne === */
 .stars {
   position: fixed;
   width: 200%;
@@ -58,7 +57,7 @@ body::after {
   100% { transform: translate(-200px, -200px); }
 }
 
-/* === Container === */
+/* === CONTAINER === */
 .container {
   text-align: center;
   background: #1a1a1a;
@@ -94,14 +93,14 @@ body::after {
   100% { background-position: 0% 50%; }
 }
 
-/* === Logo === */
+/* === LOGO === */
 .logo {
   width: 160px;
   margin-bottom: 12px;
   filter: drop-shadow(0 0 10px #00ffff);
 }
 
-/* === Socials === */
+/* === SOCIAL ICONS === */
 .social-links {
   display: flex;
   justify-content: center;
@@ -123,7 +122,7 @@ body::after {
   filter: drop-shadow(0 0 8px #00ffff);
 }
 
-/* === Input + Button === */
+/* === INPUT & BUTTON === */
 input {
   padding: 14px;
   width: 90%;
@@ -165,7 +164,7 @@ input {
   box-shadow: 0 0 12px #00ffffaa;
 }
 
-/* === Loading Spinner === */
+/* === SPINNER === */
 #loadingSpinner {
   position: fixed;
   top: 50%;
@@ -173,19 +172,6 @@ input {
   transform: translate(-50%, -50%);
   z-index: 9999;
   display: none;
-  text-align: center;
-}
-
-#loadingSpinner p {
-  color: #00ffff;
-  margin-top: 16px;
-  font-size: 16px;
-  animation: pulseText 1.8s ease-in-out infinite;
-}
-
-@keyframes pulseText {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
 }
 
 .spinner {
@@ -202,7 +188,7 @@ input {
   100% { transform: rotate(360deg); }
 }
 
-/* === Ergebnisfeld === */
+/* === RESULT-ANZEIGE MODERN === */
 #resultBox {
   display: none;
   margin-top: 32px;
@@ -275,23 +261,7 @@ input {
   animation: fadeIn 0.8s ease;
 }
 
-/* === Copy Button === */
-.copy-btn {
-  background: none;
-  border: none;
-  color: #00ffff;
-  cursor: pointer;
-  margin-left: 6px;
-  font-size: 14px;
-  transition: 0.3s ease;
-}
-
-.copy-btn:hover {
-  color: #00ffcc;
-  text-shadow: 0 0 8px #00ffff;
-}
-
-/* === Tags === */
+/* === TAGS === */
 .tag {
   padding: 2px 10px;
   border-radius: 6px;
@@ -304,7 +274,7 @@ input {
 .tag.warning { background: #c0392b; color: #fff; }
 .tag.na      { background: #7f8c8d; color: #fff; }
 
-/* === Footer === */
+/* === FOOTER === */
 footer {
   margin-top: 40px;
   font-size: 0.8em;
@@ -312,7 +282,7 @@ footer {
   text-align: center;
 }
 
-/* === Animationen === */
+/* === ANIMATIONEN === */
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(30px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -323,7 +293,7 @@ footer {
   to   { opacity: 1; }
 }
 
-/* === Mobile Responsive === */
+/* === MOBILE === */
 @media (max-width: 480px) {
   .social-links { gap: 14px; margin-bottom: 16px; }
   .social-btn img { width: 26px; height: 26px; }
