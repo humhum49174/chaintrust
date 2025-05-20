@@ -4,19 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ChainTrust</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- Sternenhintergrund -->
+  <!-- 3D-Visualisierung -->
+  <script type="module" src="https://x.com/TrustChainAI@1.9.96/build/spline-viewer.js"></script>
+  <spline-viewer url="https://x.com/TrustChainAI"></spline-viewer>
+
   <div class="stars"></div>
 
+  <!-- Hauptbereich -->
   <div class="container">
-    <!-- Logo -->
     <img src="logo.png" alt="ChainTrust Logo" class="logo" />
 
-    <!-- Social Icons -->
+    <!-- Socials -->
     <div class="social-links">
       <a href="https://x.com/TrustChainAI" target="_blank" class="social-btn" aria-label="Twitter">
         <img src="twitter.svg" alt="Twitter" />
@@ -29,66 +32,27 @@
       </a>
     </div>
 
-    <!-- Titel -->
     <h1>ChainTrust</h1>
     <p>Multichain Smart Contract Risk Scanner</p>
 
-    <!-- Eingabe + Clear Button -->
-    <div class="input-row" style="position: relative; display: flex; justify-content: center; align-items: center; margin-top: 20px;">
-      <input id="contractInput" type="text" placeholder="Paste Token Contract Address" oninput="toggleClearButton()" />
-      <button id="clearBtn" class="clear-btn-text" onclick="clearInput()" style="display: none;">×</button>
-    </div>
+    <input type="text" id="contractInput" placeholder="Paste Token Contract Address" />
 
-    <!-- Scan-Button -->
     <div class="button-wrap">
       <button class="clean-button" onclick="scanToken()">Scan Token</button>
     </div>
 
     <!-- Spinner -->
-    <div id="loadingSpinner" style="display:none;">
+    <div id="loadingSpinner">
       <div class="spinner"></div>
     </div>
 
-    <!-- Ergebnisbox -->
-    <div id="resultBox" class="result"></div>
+    <pre id="resultBox"></pre>
   </div>
 
-  <!-- Footer -->
   <footer>
     Powered by ChainTrust Security Engine | ChainTrust 2025
   </footer>
 
-  <!-- JavaScript -->
-  <script>
-    function toggleClearButton() {
-      const input = document.getElementById("contractInput");
-      const clearBtn = document.getElementById("clearBtn");
-      clearBtn.style.display = input.value.trim() ? "inline" : "none";
-    }
-
-    function clearInput() {
-      const input = document.getElementById("contractInput");
-      input.value = "";
-      document.getElementById("clearBtn").style.display = "none";
-      document.getElementById("resultBox").style.display = "none";
-      document.getElementById("resultBox").innerHTML = "";
-    }
-
-    function scanToken() {
-      const token = document.getElementById("contractInput").value.trim();
-      if (!token) return;
-
-      document.getElementById("loadingSpinner").style.display = "block";
-      document.getElementById("resultBox").style.display = "none";
-      document.getElementById("resultBox").innerHTML = "";
-
-      setTimeout(() => {
-        document.getElementById("loadingSpinner").style.display = "none";
-        document.getElementById("resultBox").style.display = "block";
-        document.getElementById("resultBox").innerHTML = `<p>Scan complete for <strong>${token}</strong>.</p>`;
-      }, 1500); // simuliert Ladezeit
-    }
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
