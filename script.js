@@ -34,7 +34,7 @@ function getRiskRating(data, contractData, honeypotData) {
 function toggleClearButton() {
   const input = document.getElementById("contractInput");
   const clearBtn = document.getElementById("clearButton");
-  clearBtn.style.display = input.value ? "block" : "none";
+  clearBtn.style.display = input.value ? "inline-block" : "none";
 }
 
 function clearInput() {
