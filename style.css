@@ -301,3 +301,40 @@ footer {
   input { font-size: 14px; padding: 12px; }
   .logo { width: 140px; }
 }
+
+.input-wrap {
+  position: relative;
+  width: 90%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+#contractInput {
+  width: 100%;
+  padding-right: 40px; /* Platz für Button */
+  padding-left: 12px;
+  height: 40px;
+  border-radius: 8px;
+  border: none;
+  font-size: 15px;
+  background: linear-gradient(145deg, #0b1f33, #1a2f44);
+  color: #aefbff;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0, 204, 255, 0.2);
+  transition: 0.3s ease;
+}
+
+#clearButton {
+  position: absolute;
+  right: 10px;
+  top: 7px;
+  height: 26px;
+  width: 26px;
+  font-size: 18px;
+  background-color: #444;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
