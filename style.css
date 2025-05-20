@@ -57,7 +57,6 @@ body::after {
   100% { transform: translate(-200px, -200px); }
 }
 
-/* === CONTAINER === */
 .container {
   text-align: center;
   background: #1a1a1a;
@@ -93,14 +92,14 @@ body::after {
   100% { background-position: 0% 50%; }
 }
 
-/* === LOGO === */
+/* Logo */
 .logo {
   width: 160px;
   margin-bottom: 12px;
   filter: drop-shadow(0 0 10px #00ffff);
 }
 
-/* === SOCIAL ICONS === */
+/* Socials */
 .social-links {
   display: flex;
   justify-content: center;
@@ -122,29 +121,30 @@ body::after {
   filter: drop-shadow(0 0 8px #00ffff);
 }
 
-/* === INPUT & BUTTON === */
-input {
-  padding: 14px;
+/* Input & Clear */
+.input-row {
+  position: relative;
   width: 90%;
-  max-width: 300px;
-  border-radius: 8px;
+  max-width: 400px;
+  margin: 20px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-row input {
+  flex: 1;
+  padding: 14px 110px 14px 14px;
+  border-radius: 10px;
   border: none;
   background: linear-gradient(145deg, #0b1f33, #1a2f44);
   color: #aefbff;
   font-size: 15px;
-  text-align: center;
-  margin-top: 20px;
   box-shadow: 0 0 15px rgba(0, 204, 255, 0.2);
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  transition: 0.3s ease;
+  text-align: center;
 }
 
-.button-wrap {
-  margin-top: 24px;
-}
-
+/* Buttons */
 .clean-button {
   padding: 14px 30px;
   color: #00ffff;
@@ -164,7 +164,32 @@ input {
   box-shadow: 0 0 12px #00ffffaa;
 }
 
-/* === SPINNER === */
+.clean-button.clear {
+  position: absolute;
+  right: 5px;
+  padding: 12px 20px;
+  color: #00ffff;
+  border: 2px solid #00ffff;
+  border-radius: 10px;
+  background: transparent;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.clean-button.clear:hover {
+  background-color: #00ffff;
+  color: #000;
+  box-shadow: 0 0 12px #00ffffaa;
+}
+
+.button-wrap {
+  margin-top: 24px;
+}
+
+/* Spinner */
 #loadingSpinner {
   position: fixed;
   top: 50%;
@@ -188,7 +213,7 @@ input {
   100% { transform: rotate(360deg); }
 }
 
-/* === RESULT-ANZEIGE MODERN === */
+/* Result */
 #resultBox {
   display: none;
   margin-top: 32px;
@@ -261,7 +286,6 @@ input {
   animation: fadeIn 0.8s ease;
 }
 
-/* === TAGS === */
 .tag {
   padding: 2px 10px;
   border-radius: 6px;
@@ -274,7 +298,6 @@ input {
 .tag.warning { background: #c0392b; color: #fff; }
 .tag.na      { background: #7f8c8d; color: #fff; }
 
-/* === FOOTER === */
 footer {
   margin-top: 40px;
   font-size: 0.8em;
@@ -282,7 +305,7 @@ footer {
   text-align: center;
 }
 
-/* === ANIMATIONEN === */
+/* Animationen */
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(30px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -293,7 +316,7 @@ footer {
   to   { opacity: 1; }
 }
 
-/* === MOBILE === */
+/* Mobile */
 @media (max-width: 480px) {
   .social-links { gap: 14px; margin-bottom: 16px; }
   .social-btn img { width: 26px; height: 26px; }
@@ -301,36 +324,3 @@ footer {
   input { font-size: 14px; padding: 12px; }
   .logo { width: 140px; }
 }
-
-.input-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-  position: relative;
-}
-
-.input-row input {
-  padding-right: 38px;
-}
-
-.clear-button {
-  position: absolute;
-  right: 10px;
-  padding: 0 8px;
-  font-size: 20px;
-  background: none;
-  border: none;
-  color: #aaa;
-  cursor: pointer;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color 0.2s;
-}
-
-.clear-button:hover {
-  color: #fff;
-}
-
