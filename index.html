@@ -5,168 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ChainTrust</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-      background: #000;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-
-    .stars {
-      position: fixed;
-      width: 200%;
-      height: 200%;
-      background: url('stars.png');
-      animation: starAnim 200s linear infinite;
-      z-index: -2;
-    }
-
-    @keyframes starAnim {
-      from { transform: translate(0, 0); }
-      to { transform: translate(-50%, -50%); }
-    }
-
-    .container {
-      text-align: center;
-      background: #1a1a1a;
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 0 20px #00ffff;
-      max-width: 480px;
-      width: 100%;
-      position: relative;
-    }
-
-    .logo {
-      max-width: 100px;
-      margin-bottom: 20px;
-    }
-
-    .social-links {
-      margin-bottom: 20px;
-    }
-
-    .social-btn {
-      margin: 0 10px;
-    }
-
-    .input-row {
-      position: relative;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-    }
-
-    .input-row input {
-      width: 100%;
-      padding: 12px 40px 12px 15px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-    }
-
-    .clear-btn-text {
-      position: absolute;
-      right: 10px;
-      background: none;
-      border: none;
-      color: #888;
-      font-size: 20px;
-      cursor: pointer;
-    }
-
-    .clean-button {
-      padding: 12px 24px;
-      font-size: 16px;
-      background: #00ffff;
-      border: none;
-      border-radius: 8px;
-      color: #000;
-      cursor: pointer;
-      font-weight: 600;
-      margin-top: 10px;
-    }
-
-    .spinner {
-      border: 4px solid rgba(255, 255, 255, 0.2);
-      border-top: 4px solid #00ffff;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-      margin: 20px auto;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .result {
-      margin-top: 20px;
-    }
-
-    footer {
-      margin-top: 40px;
-      font-size: 12px;
-      color: #888;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
+  <!-- Sternenhintergrund -->
   <div class="stars"></div>
 
   <div class="container">
+    <!-- Logo -->
     <img src="logo.png" alt="ChainTrust Logo" class="logo" />
 
+    <!-- Social Icons -->
     <div class="social-links">
-      <a href="https://x.com/TrustChainAI" target="_blank" class="social-btn">
+      <a href="https://x.com/TrustChainAI" target="_blank" class="social-btn" aria-label="Twitter">
         <img src="twitter.svg" alt="Twitter" />
       </a>
-      <a href="https://t.me/TrustChainAI" target="_blank" class="social-btn">
+      <a href="https://t.me/TrustChainAI" target="_blank" class="social-btn" aria-label="Telegram">
         <img src="telegram.svg" alt="Telegram" />
       </a>
-      <a href="https://discord.gg/TrustChainAI" target="_blank" class="social-btn">
+      <a href="https://discord.gg/TrustChainAI" target="_blank" class="social-btn" aria-label="Discord">
         <img src="discord.svg" alt="Discord" />
       </a>
     </div>
 
+    <!-- Titel -->
     <h1>ChainTrust</h1>
     <p>Multichain Smart Contract Risk Scanner</p>
 
-    <!-- INPUT-Feld mit Clear-Button -->
-    <div class="input-row">
+    <!-- Eingabe + Clear Button -->
+    <div class="input-row" style="position: relative; display: flex; justify-content: center; align-items: center; margin-top: 20px;">
       <input id="contractInput" type="text" placeholder="Paste Token Contract Address" oninput="toggleClearButton()" />
       <button id="clearBtn" class="clear-btn-text" onclick="clearInput()" style="display: none;">×</button>
     </div>
 
-    <!-- Scan Button -->
-    <button class="clean-button" onclick="scanToken()">Scan Token</button>
+    <!-- Scan-Button -->
+    <div class="button-wrap">
+      <button class="clean-button" onclick="scanToken()">Scan Token</button>
+    </div>
 
     <!-- Spinner -->
     <div id="loadingSpinner" style="display:none;">
       <div class="spinner"></div>
     </div>
 
-    <!-- Ergebnisse -->
+    <!-- Ergebnisbox -->
     <div id="resultBox" class="result"></div>
   </div>
 
+  <!-- Footer -->
   <footer>
     Powered by ChainTrust Security Engine | ChainTrust 2025
   </footer>
 
+  <!-- JavaScript -->
   <script>
     function toggleClearButton() {
       const input = document.getElementById("contractInput");
@@ -194,7 +86,7 @@
         document.getElementById("loadingSpinner").style.display = "none";
         document.getElementById("resultBox").style.display = "block";
         document.getElementById("resultBox").innerHTML = `<p>Scan complete for <strong>${token}</strong>.</p>`;
-      }, 1500); // Simulierter Scan
+      }, 1500); // simuliert Ladezeit
     }
   </script>
 
