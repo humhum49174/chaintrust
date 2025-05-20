@@ -57,7 +57,6 @@ body::after {
   100% { transform: translate(-200px, -200px); }
 }
 
-/* === CONTAINER === */
 .container {
   text-align: center;
   background: #1a1a1a;
@@ -93,14 +92,12 @@ body::after {
   100% { background-position: 0% 50%; }
 }
 
-/* === LOGO === */
 .logo {
   width: 160px;
   margin-bottom: 12px;
   filter: drop-shadow(0 0 10px #00ffff);
 }
 
-/* === SOCIAL ICONS === */
 .social-links {
   display: flex;
   justify-content: center;
@@ -122,38 +119,36 @@ body::after {
   filter: drop-shadow(0 0 8px #00ffff);
 }
 
-/* === INPUT & BUTTON === */
-input {
-  padding: 14px;
-  width: 90%;
+/* === INPUT + CLEAR BUTTON SIDE BY SIDE === */
+.input-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.input-wrapper input {
+  flex: 1;
   max-width: 300px;
-  border-radius: 8px;
+  padding: 14px;
+  border-radius: 8px 0 0 8px;
   border: none;
   background: linear-gradient(145deg, #0b1f33, #1a2f44);
   color: #aefbff;
   font-size: 15px;
-  text-align: center;
-  margin-top: 20px;
   box-shadow: 0 0 15px rgba(0, 204, 255, 0.2);
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  transition: 0.3s ease;
-}
-
-.button-wrap {
-  margin-top: 24px;
 }
 
 #clearButton {
-  height: 40px;
-  width: 40px;
+  height: 48px;
+  width: 48px;
   font-size: 20px;
   background-color: #444;
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 0 8px 8px 0;
   cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 204, 255, 0.2);
 }
 
 .clean-button {
@@ -219,37 +214,6 @@ footer {
   font-size: 0.8em;
   color: #888;
   text-align: center;
-}
-
-/* === SPINNER === */
-#loadingSpinner {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 9999;
-  display: none;
-}
-
-.spinner {
-  width: 50px;
-  height: 50px;
-  border: 6px solid #00ffff33;
-  border-top: 6px solid #00ffff;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* === RESULT-ANZEIGE MODERN === */
-#resultBox {
-  display: none;
-  margin-top: 32px;
-  color: #ccc;
 }
 
 .result-card {
@@ -318,7 +282,6 @@ footer {
   animation: fadeIn 0.8s ease;
 }
 
-/* === TAGS === */
 .tag {
   padding: 2px 10px;
   border-radius: 6px;
@@ -331,15 +294,6 @@ footer {
 .tag.warning { background: #c0392b; color: #fff; }
 .tag.na      { background: #7f8c8d; color: #fff; }
 
-/* === FOOTER === */
-footer {
-  margin-top: 40px;
-  font-size: 0.8em;
-  color: #888;
-  text-align: center;
-}
-
-/* === ANIMATIONEN === */
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(30px); }
   to   { opacity: 1; transform: translateY(0); }
