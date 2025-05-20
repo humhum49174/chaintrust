@@ -3,8 +3,9 @@ const chains = [
   { id: 56, name: "binance", icon: "icons/bnb.svg" },
   { id: 137, name: "polygon", icon: "icons/polygon.svg" },
   { id: 42161, name: "arbitrum", icon: "icons/arbitrum.svg" },
+  { id: 10, name: "optimism", icon: "icons/optimism.svg" },
   { id: 8453, name: "base", icon: "icons/base.svg" },
-  { id: 10, name: "optimism", icon: "icons/optimism.svg" }
+  { id: "solana", name: "solana", icon: "icons/solana.svg" }
 ];
 
 function tag(value, successLabel = "Yes", failLabel = "No") {
@@ -13,23 +14,44 @@ function tag(value, successLabel = "Yes", failLabel = "No") {
   return `<span class="tag na">N/A</span>`;
 }
 
+function clearInput() {
+  const input = document.getElementById("contractInput");
+  const resultBox = document.getElementById("resultBox");
+  const clearBtn = document.getElementById("clearBtn");
+  input.value = "";
+  resultBox.innerHTML = "";
+  resultBox.style.display = "none";
+  clearBtn.style.display = "none";
+}
+
+function toggleClearButton() {
+  const input = document.getElementById("contractInput");
+  const clearBtn = document.getElementById("clearBtn");
+  clearBtn.style.display = input.value.trim() ? "inline-block" : "none";
+}
+
 async function scanToken() {
   const token = document.getElementById("contractInput").value.trim();
   const box = document.getElementById("resultBox");
   box.style.display = "block";
-  box.innerHTML = "🔄 Scanning...";
+  box.innerHTML = "🔍 Scanning token across supported chains...";
 
   if (!token) {
     box.innerHTML = `<p style="color: #ff4d4d; margin-top: 20px;">❗ Please enter a contract address.</p>`;
     return;
   }
 
+  const isSolana = token.length === 44 || token.endsWith(".sol");
+  if (isSolana) {
+    return scanSolanaToken(token, box);
+  }
+
   let found = false;
 
-  for (const chain of chains) {
+  for (const chain of chains.filter(c => typeof c.id === "number")) {
     try {
-      const baseURL = `https://api.gopluslabs.io/api/v1`;
       const tokenLC = token.toLowerCase();
+      const baseURL = `https://api.gopluslabs.io/api/v1`;
 
       const [
         tokenSec,
@@ -78,14 +100,12 @@ async function scanToken() {
             <div class="result-row"><span>Liquidity:</span><span>$${data.total_liquidity || "N/A"}</span></div>
             <div class="result-row"><span>24h Volume:</span><span>$${data.volume_24h || "N/A"}</span></div>
           </div>
-          <div class="result-risk">⚠️ Risk Factors: ✅ AI Risk: No major threats detected.</div>
+          <div class="result-risk">⚠️ Risk Factors: ✅ Checked on ${chain.name}</div>
         </div>
       `;
 
-      // Scroll to results
       box.scrollIntoView({ behavior: "smooth" });
 
-      // Animate each .result-row
       const rows = document.querySelectorAll(".result-row");
       rows.forEach((row, i) => {
         row.style.opacity = 0;
@@ -104,33 +124,37 @@ async function scanToken() {
   }
 
   if (!found) {
-    box.innerHTML = `<div class="result-card"><strong>❌ Token not found or no security data available.</strong></div>`;
+    box.innerHTML = `<div class="result-card"><strong>❌ Token not found or unsupported chain. Coming soon...</strong></div>`;
   }
 }
 
-function clearInput() {
-  const input = document.getElementById("contractInput");
-  const resultBox = document.getElementById("resultBox");
+async function scanSolanaToken(address, box) {
+  try {
+    const response = await fetch(`https://rugcheck-proxy.onrender.com/?address=${address}`);
+    const result = await response.json();
 
-  input.value = "";
-  resultBox.innerHTML = "";
-  resultBox.style.display = "none";
-}
+    if (!result || result.error) {
+      box.innerHTML = `<div class="result-card"><strong>❌ Solana token not found or invalid address.</strong></div>`;
+      return;
+    }
 
-function clearInput() {
-  const input = document.getElementById("contractInput");
-  const resultBox = document.getElementById("resultBox");
-  const clearBtn = document.getElementById("clearBtn");
-
-  input.value = "";
-  resultBox.innerHTML = "";
-  resultBox.style.display = "none";
-  clearBtn.style.display = "none";
-}
-
-function toggleClearButton() {
-  const input = document.getElementById("contractInput");
-  const clearBtn = document.getElementById("clearBtn");
-
-  clearBtn.style.display = input.value.trim() ? "inline-block" : "none";
+    box.innerHTML = `
+      <div class="result-card solana">
+        <div class="result-header">
+          <img src="icons/solana.svg" class="chain-icon" />
+          <h3>SOLANA Token</h3>
+        </div>
+        <div class="result-body">
+          <div class="result-row"><span>Renounced:</span>${tag(result.renounced)}</div>
+          <div class="result-row"><span>LP Locked:</span>${tag(result.lp_locked)}</div>
+          <div class="result-row"><span>Can Mint:</span>${tag(result.can_mint)}</div>
+          <div class="result-row"><span>Owner:</span><span>${result.owner || "N/A"}</span></div>
+        </div>
+        <div class="result-risk">⚠️ Solana Token Risk: ✅ Scanned via RugCheck</div>
+      </div>
+    `;
+  } catch (e) {
+    box.innerHTML = `<div class="result-card"><strong>❌ Error scanning Solana token.</strong></div>`;
+    console.error(e);
+  }
 }
