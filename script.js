@@ -1,3 +1,5 @@
+
+// Bewertungssystem-Funktion
 function calculateTokenScore(data, contractData, honeypotData, approvalData, phishingData) {
   let score = 100;
   const reasons = [];
@@ -45,7 +47,7 @@ function calculateTokenScore(data, contractData, honeypotData, approvalData, phi
 }
 
 function renderScoreBox(scoreData) {
-  const reasonsList = scoreData.reasons.map(r => `<li>${r}</li>`).join("");
+  let reasonsList = scoreData.reasons.map(r => `<li>${r}</li>`).join("");
   return `
     <div class="result-risk">
       <strong>💯 Score: ${scoreData.score} – ${scoreData.rating}</strong>
