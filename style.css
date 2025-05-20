@@ -86,12 +86,20 @@ body::after {
   opacity: 0.4;
 }
 
+@keyframes rotateBorder {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* === LOGO === */
 .logo {
   width: 160px;
   margin-bottom: 12px;
   filter: drop-shadow(0 0 10px #00ffff);
 }
 
+/* === SOCIAL ICONS === */
 .social-links {
   display: flex;
   justify-content: center;
@@ -113,49 +121,31 @@ body::after {
   filter: drop-shadow(0 0 8px #00ffff);
 }
 
-/* === INPUT === */
-.input-wrapper {
+/* === INPUT & CLEAR === */
+.input-row {
   position: relative;
   width: 90%;
   max-width: 400px;
-  margin: 20px auto;
+  margin: 20px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.input-wrapper input {
-  width: 100%;
+.input-row input {
+  flex: 1;
   height: 48px;
-  padding: 0 50px 0 14px;
+  padding: 0 14px;
   border-radius: 10px;
   border: none;
   background: linear-gradient(145deg, #0b1f33, #1a2f44);
   color: #aefbff;
   font-size: 15px;
   box-shadow: 0 0 15px rgba(0, 204, 255, 0.2);
-  text-align: left;
+  text-align: center;
 }
 
-.clear-btn-text {
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: #00ffff;
-  font-size: 13px;
-  font-weight: bold;
-  font-family: inherit;
-  cursor: pointer;
-  padding: 0;
-  line-height: 1;
-  transition: opacity 0.2s ease;
-}
-
-.clear-btn-text:hover {
-  opacity: 0.7;
-}
-
-/* === BUTTON === */
+/* === SCAN TOKEN BUTTON === */
 .clean-button {
   height: 48px;
   padding: 0 30px;
@@ -180,15 +170,7 @@ body::after {
   margin-top: 24px;
 }
 
-/* === FOOTER === */
-footer {
-  margin-top: 40px;
-  font-size: 0.8em;
-  color: #888;
-  text-align: center;
-}
-
-/* === SPINNER (optional) === */
+/* === SPINNER === */
 #loadingSpinner {
   position: fixed;
   top: 50%;
@@ -212,6 +194,111 @@ footer {
   100% { transform: rotate(360deg); }
 }
 
+/* === RESULT DISPLAY === */
+#resultBox {
+  display: none;
+  margin-top: 32px;
+  color: #ccc;
+}
+
+.result-card {
+  background: transparent;
+  padding: 0 10px;
+  border-radius: 10px;
+  box-shadow: none;
+  text-align: left;
+  color: #fff;
+  animation: slideUp 0.5s ease;
+}
+
+.result-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.result-header h3 {
+  font-size: 20px;
+  margin: 20px 0 10px;
+  color: #00ffff;
+  text-shadow: 0 0 5px #00ffffaa;
+}
+
+.chain-icon {
+  width: 24px;
+  height: 24px;
+  filter: drop-shadow(0 0 3px #00ffff88);
+}
+
+.result-body {
+  display: grid;
+  gap: 14px;
+  margin-top: 30px;
+  animation: fadeIn 0.6s ease;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+  padding-bottom: 6px;
+  font-size: 15px;
+  color: #d9f6ff;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.result-row span:first-child {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.result-risk {
+  font-weight: bold;
+  margin-top: 30px;
+  text-align: center;
+  font-size: 15px;
+  color: #ff9999;
+  padding: 12px 16px;
+  border-top: 1px dashed #00ffff55;
+  animation: fadeIn 0.8s ease;
+}
+
+/* === TAG STYLES === */
+.tag {
+  padding: 2px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.tag.success { background: #27ae60; color: #fff; }
+.tag.warning { background: #c0392b; color: #fff; }
+.tag.na      { background: #7f8c8d; color: #fff; }
+
+/* === FOOTER === */
+footer {
+  margin-top: 40px;
+  font-size: 0.8em;
+  color: #888;
+  text-align: center;
+}
+
+/* === ANIMATIONEN === */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 /* === MOBILE === */
 @media (max-width: 480px) {
   .social-links { gap: 14px; margin-bottom: 16px; }
@@ -219,4 +306,26 @@ footer {
   .clean-button { font-size: 14px; padding: 12px 24px; }
   input { font-size: 14px; padding: 12px; }
   .logo { width: 140px; }
+}
+
+/* === FINAL: CLEAR BUTTON OHNE KASTEN === */
+.clear-btn-text {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #00ffff;
+  font-size: 13px;
+  font-weight: bold;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: opacity 0.2s ease;
+}
+
+.clear-btn-text:hover {
+  opacity: 0.7;
 }
