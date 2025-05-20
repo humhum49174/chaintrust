@@ -8,9 +8,9 @@ const chains = [
   { id: 324, name: "zksync", icon: "icons/zksync.svg" }
 ];
 
-function tag(value, successLabel = "Yes", failLabel = "No") {
-  if (value === "1" || value === true) return `<span class="tag warning">${successLabel}</span>`;
-  if (value === "0" || value === false) return `<span class="tag success">${failLabel}</span>`;
+function tag(value, labelIfTrue = "Yes", labelIfFalse = "No") {
+  if (value === "1" || value === true) return `<span class="tag warning">${labelIfTrue}</span>`;
+  if (value === "0" || value === false) return `<span class="tag success">${labelIfFalse}</span>`;
   return `<span class="tag na">N/A</span>`;
 }
 
@@ -28,27 +28,44 @@ async function scanToken() {
   const tokenLC = token.toLowerCase();
   const baseURL = "https://api.gopluslabs.io/api/v1";
 
-  let found = false;
-
   for (const chain of chains) {
     try {
-      const [sec, con, appr, honeypot, phish] = await Promise.all([
+      const [
+        sec,
+        con,
+        appr,
+        honeypot,
+        phishing,
+        dexscreener
+      ] = await Promise.all([
         fetch(`${baseURL}/token_security/${chain.id}?contract_addresses=${token}`).then(r => r.json()),
         fetch(`${baseURL}/contract_security/${chain.id}?contract_addresses=${token}`).then(r => r.json()),
         fetch(`${baseURL}/approval_security/${chain.id}?contract_addresses=${token}`).then(r => r.json()),
         fetch(`${baseURL}/honeypot_detection/${chain.id}?contract_addresses=${token}`).then(r => r.json()),
-        fetch(`${baseURL}/phishing_site_checker?url=${token}`).then(r => r.json())
+        fetch(`${baseURL}/phishing_site_checker?url=${token}`).then(r => r.json()),
+        fetch(`https://api.dexscreener.com/latest/dex/search?q=${token}`).then(r => r.json())
       ]);
 
       const d = sec.result?.[tokenLC];
       if (!d) continue;
-      found = true;
 
       const c = con.result?.[tokenLC];
       const a = appr.result?.[tokenLC];
       const h = honeypot.result?.[tokenLC];
-      const p = phish.result?.[tokenLC];
+      const p = phishing.result?.[tokenLC];
+      const dex = dexscreener.pairs?.[0];
+
       const logo = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${chain.name}/assets/${token}/logo.png`;
+
+      const riskFlags = [];
+      if (d.can_mint === "1") riskFlags.push("🔴 Can Mint");
+      if (d.can_blacklist === "1") riskFlags.push("🛑 Can Blacklist");
+      if (c?.is_upgradable === "1") riskFlags.push("⚠️ Upgradeable");
+      if (c?.selfdestruct === "1") riskFlags.push("💣 Selfdestruct Enabled");
+
+      const riskSummary = riskFlags.length > 0
+        ? `⚠️ Risk Factors: ${riskFlags.join(", ")}`
+        : `✅ No major risks detected`;
 
       box.innerHTML = `
         <div class="result-card evm">
@@ -61,25 +78,27 @@ async function scanToken() {
             <div class="result-row"><span>Owner Address:</span><span>${d.owner_address}</span></div>
             <div class="result-row"><span>Can Mint:</span>${tag(d.can_mint)}</div>
             <div class="result-row"><span>Can Blacklist:</span>${tag(d.can_blacklist)}</div>
-            <div class="result-row"><span>Is Open Source:</span>${tag(d.is_open_source)}</div>
-            <div class="result-row"><span>Proxy Contract:</span>${tag(c?.is_proxy)}</div>
+            <div class="result-row"><span>Open Source:</span>${tag(d.is_open_source)}</div>
+            <div class="result-row"><span>Proxy:</span>${tag(c?.is_proxy)}</div>
             <div class="result-row"><span>Upgradeable:</span>${tag(c?.is_upgradable)}</div>
             <div class="result-row"><span>Self Destruct:</span>${tag(c?.selfdestruct)}</div>
-            <div class="result-row"><span>Hidden Owner:</span>${tag(c?.hidden_owner)}</div>
-            <div class="result-row"><span>External Calls:</span>${tag(c?.external_call)}</div>
-            <div class="result-row"><span>Approval Risk:</span>${tag(a?.is_approval_check_needed)}</div>
             <div class="result-row"><span>Honeypot:</span>${tag(h?.is_honeypot === "0", "No", "Yes")}</div>
-            <div class="result-row"><span>Phishing Detected:</span>${tag(p?.risk, "Yes", "No")}</div>
+            <div class="result-row"><span>Phishing:</span>${tag(p?.risk, "Yes", "No")}</div>
+            <div class="result-row"><span>Approval Risk:</span>${tag(a?.is_approval_check_needed)}</div>
+            <div class="result-row"><span>Price:</span><span>${dex?.priceUsd ? `$${parseFloat(dex.priceUsd).toFixed(6)}` : "N/A"}</span></div>
+            <div class="result-row"><span>Liquidity:</span><span>${dex?.liquidity?.usd ? `$${Math.round(dex.liquidity.usd)}` : "N/A"}</span></div>
+            <div class="result-row"><span>Volume 24h:</span><span>${dex?.volume?.h24 ? `$${Math.round(dex.volume.h24)}` : "N/A"}</span></div>
+          </div>
+          <div class="result-risk">
+            <strong>${riskSummary}</strong>
           </div>
         </div>
       `;
-      break;
-    } catch (err) {
-      console.error(`Error on ${chain.name}:`, err);
+      return;
+    } catch (e) {
+      console.warn(`Error on ${chain.name}:`, e);
     }
   }
 
-  if (!found) {
-    box.innerHTML = `<div class="result-card"><strong>❌ Token not found or no security data available.</strong></div>`;
-  }
+  document.getElementById("resultBox").innerHTML = `<div class="result-card"><strong>❌ Token not found or no data.</strong></div>`;
 }
