@@ -213,6 +213,16 @@ input {
   padding-bottom: 6px;
 }
 
+.result-risk {
+  margin-top: 20px;
+  font-weight: bold;
+  color: #ff6363;
+  text-align: center;
+  padding-top: 10px;
+  border-top: 1px solid #444;
+  font-size: 15px;
+}
+
 /* === TAGS === */
 .tag {
   padding: 2px 10px;
@@ -231,22 +241,6 @@ footer {
   margin-top: 30px;
   font-size: 0.8em;
   color: #888;
-}
-
-/* === X Button (optional) === */
-.x-icon-only {
-  width: 32px;
-  height: 32px;
-  filter: drop-shadow(0 0 4px #00ffffcc);
-  transition: transform 0.3s ease;
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 10;
-}
-
-.x-icon-only:hover {
-  transform: scale(1.2);
 }
 
 /* === MOBILE === */
