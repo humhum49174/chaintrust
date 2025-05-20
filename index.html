@@ -24,20 +24,23 @@
     <h1>ChainTrust</h1>
     <p>Multichain Smart Contract Risk Scanner</p>
 
-    <!-- INPUT + CLEAR -->
+    <!-- Input + Clear -->
     <div class="input-wrapper">
       <input id="contractInput" type="text" placeholder="Paste Token Contract Address" oninput="toggleClearButton()" />
-      <button id="clearBtn" class="clear-btn-text" onclick="clearInput()" style="display: none;">×</button>
+      <button id="clearButton" onclick="clearInput()" style="display: none;">×</button>
     </div>
 
-    <div class="button-wrap">
+    <!-- Scan Button -->
+    <div>
       <button class="clean-button" onclick="scanToken()">Scan Token</button>
     </div>
 
-    <div id="loadingSpinner" style="display:none;">
+    <!-- Spinner -->
+    <div id="loadingSpinner">
       <div class="spinner"></div>
     </div>
 
+    <!-- Result -->
     <div id="resultBox" class="result"></div>
   </div>
 
@@ -45,25 +48,35 @@
     Powered by ChainTrust Security Engine | ChainTrust 2025
   </footer>
 
+  <!-- JavaScript -->
   <script>
     function toggleClearButton() {
       const input = document.getElementById("contractInput");
-      const clearBtn = document.getElementById("clearBtn");
+      const clearBtn = document.getElementById("clearButton");
       clearBtn.style.display = input.value.trim() ? "inline" : "none";
     }
 
     function clearInput() {
       const input = document.getElementById("contractInput");
       input.value = "";
-      document.getElementById("clearBtn").style.display = "none";
+      document.getElementById("clearButton").style.display = "none";
       document.getElementById("resultBox").style.display = "none";
       document.getElementById("resultBox").innerHTML = "";
     }
 
     function scanToken() {
-      // Hier kommt später dein Scan-Code mit API
-      alert("Scanning token...");
+      const input = document.getElementById("contractInput").value.trim();
+      if (!input) {
+        alert("Please enter a contract address.");
+        return;
+      }
+
+      document.getElementById("resultBox").style.display = "block";
+      document.getElementById("resultBox").innerHTML = "🔍 Scanning token " + input + "...";
+
+      // Hier kommt dein echter Scan-Code (API-Call etc.)
     }
   </script>
+
 </body>
 </html>
