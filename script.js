@@ -14,6 +14,23 @@ function tag(value, good = "No", bad = "Yes") {
   return `<span class="tag na">N/A</span>`;
 }
 
+function showLoading(state) {
+  const spinner = document.getElementById("loadingSpinner");
+  if (spinner) spinner.style.display = state ? "block" : "none";
+}
+
+function generateAIRiskText(data, contract) {
+  const risks = [];
+  if (data.can_mint === "1") risks.push("Can Mint");
+  if (data.can_blacklist === "1") risks.push("Can Blacklist");
+  if (contract?.is_upgradable === "1") risks.push("Upgradeable");
+  if (contract?.hidden_owner === "1") risks.push("Hidden Owner");
+  if (contract?.selfdestruct === "1") risks.push("Selfdestruct");
+
+  if (risks.length === 0) return "✅ AI Risk: No major threats detected.";
+  return `⚠️ AI Risk: ${risks.join(", ")}`;
+}
+
 async function scanToken() {
   const token = document.getElementById("contractInput").value.trim();
   const box = document.getElementById("resultBox");
@@ -24,6 +41,7 @@ async function scanToken() {
     return;
   }
 
+  showLoading(true);
   box.innerHTML = "🔄 Scanning...";
 
   const tokenLC = token.toLowerCase();
@@ -57,16 +75,7 @@ async function scanToken() {
       const dexData = dex.pairs?.[0];
 
       const logo = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${chain.name}/assets/${token}/logo.png`;
-
-      const flags = [];
-      if (d.can_mint === "1") flags.push("🚨 Can Mint");
-      if (d.can_blacklist === "1") flags.push("⚠️ Can Blacklist");
-      if (c?.is_upgradable === "1") flags.push("🛠️ Upgradeable");
-      if (c?.selfdestruct === "1") flags.push("💣 Selfdestruct");
-
-      const riskText = flags.length
-        ? `⚠️ Risk Factors: ${flags.join(", ")}`
-        : `✅ No critical risks detected`;
+      const aiRisk = generateAIRiskText(d, c);
 
       box.innerHTML = `
         <div class="result-card evm">
@@ -89,9 +98,16 @@ async function scanToken() {
             <div class="result-row"><span>Liquidity:</span><span>${dexData?.liquidity?.usd ? `$${Math.round(dexData.liquidity.usd)}` : "N/A"}</span></div>
             <div class="result-row"><span>24h Volume:</span><span>${dexData?.volume?.h24 ? `$${Math.round(dexData.volume.h24)}` : "N/A"}</span></div>
           </div>
-          <div class="result-risk"><strong>${riskText}</strong></div>
+          <div class="result-risk"><strong>⚠️ Risk Factors:</strong> ${aiRisk}</div>
         </div>
       `;
+
+      setTimeout(() => {
+        const card = document.querySelector(".result-card");
+        if (card) card.classList.add("visible");
+      }, 100);
+
+      showLoading(false);
       return;
     } catch (e) {
       console.warn(`Error on ${chain.name}:`, e);
@@ -99,4 +115,5 @@ async function scanToken() {
   }
 
   box.innerHTML = `<div class="result-card"><strong>❌ Token not found or unsupported chain.</strong></div>`;
+  showLoading(false);
 }
