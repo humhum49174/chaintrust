@@ -31,6 +31,21 @@ function getRiskRating(data, contractData, honeypotData) {
   return { level, flags };
 }
 
+function toggleClearButton() {
+  const input = document.getElementById("contractInput");
+  const clearBtn = document.getElementById("clearButton");
+  clearBtn.style.display = input.value ? "block" : "none";
+}
+
+function clearInput() {
+  const input = document.getElementById("contractInput");
+  input.value = "";
+  toggleClearButton();
+  document.getElementById("resultBox").style.display = "none";
+  document.getElementById("resultBox").innerHTML = "";
+  input.focus();
+}
+
 async function scanToken() {
   const token = document.getElementById("contractInput").value.trim();
   const box = document.getElementById("resultBox");
@@ -126,10 +141,4 @@ async function scanToken() {
   if (!found) {
     box.innerHTML = `<div class="result-card"><strong>❌ Token not found or no security data available.</strong></div>`;
   }
-}
-
-function clearInput() {
-  document.getElementById("contractInput").value = "";
-  document.getElementById("resultBox").style.display = "none";
-  document.getElementById("resultBox").innerHTML = "";
 }
