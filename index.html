@@ -9,13 +9,8 @@
 </head>
 <body>
 
-  <!-- 3D-Visualisierung -->
-  <script type="module" src="https://x.com/ChainTrust_fun@1.9.96/build/spline-viewer.js"></script>
-  <spline-viewer url="https://x.com/ChainTrust_fun"></spline-viewer>
-
   <div class="stars"></div>
 
-  <!-- Hauptbereich -->
   <div class="container">
     <img src="logo.png" alt="ChainTrust Logo" class="logo" />
 
@@ -35,13 +30,16 @@
     <h1>ChainTrust</h1>
     <p>Multichain Smart Contract Risk Scanner</p>
 
-    <input type="text" id="contractInput" placeholder="Paste Token Contract Address" />
+    <!-- Input + Clear -->
+    <div class="input-wrap">
+      <input type="text" id="contractInput" placeholder="Paste Token Contract Address" oninput="toggleClearButton()" />
+      <button id="clearButton" onclick="clearInput()" style="display: none;">×</button>
+    </div>
 
     <div class="button-wrap">
       <button class="clean-button" onclick="scanToken()">Scan Token</button>
     </div>
 
-    <!-- Spinner -->
     <div id="loadingSpinner">
       <div class="spinner"></div>
     </div>
