@@ -184,10 +184,41 @@ input {
   display: none;
 }
 
-.clean-button:hover {
-  background-color: #00ffff;
-  color: #000;
-  box-shadow: 0 0 12px #00ffffaa;
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 6px solid #00ffff33;
+  border-top: 6px solid #00ffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#resultBox {
+  display: none;
+  margin-top: 32px;
+  color: #ccc;
+}
+
+.result-card {
+  background: transparent;
+  padding: 0 10px;
+  border-radius: 10px;
+  text-align: center;
+  color: #fff;
+  font-size: 15px;
+  margin-top: 20px;
+}
+
+footer {
+  margin-top: 40px;
+  font-size: 0.8em;
+  color: #888;
+  text-align: center;
 }
 
 /* === SPINNER === */
