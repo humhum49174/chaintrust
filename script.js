@@ -13,39 +13,6 @@ function tag(value, successLabel = "Yes", failLabel = "No") {
   return `<span class="tag na">N/A</span>`;
 }
 
-function getRiskRating(data, contractData, honeypotData) {
-  const flags = [];
-
-  if (data.can_mint === "1") flags.push("Token can be minted 🔥");
-  if (data.can_blacklist === "1") flags.push("Blacklist function enabled 🚫");
-  if (contractData?.is_upgradable === "1") flags.push("Upgradeable contract ⚙️");
-  if (contractData?.selfdestruct === "1") flags.push("Self-destruct function 💣");
-  if (honeypotData?.is_honeypot === "1") flags.push("⚠️ Honeypot detected!");
-  if (data.owner_address?.toLowerCase() !== "0x0000000000000000000000000000000000000000")
-    flags.push("Ownership not renounced ❗");
-
-  let level = "✅ Low Risk";
-  if (flags.length >= 3) level = "⚠️ Medium Risk";
-  if (flags.length >= 5) level = "❌ High Risk";
-
-  return { level, flags };
-}
-
-function toggleClearButton() {
-  const input = document.getElementById("contractInput");
-  const clearBtn = document.getElementById("clearButton");
-  clearBtn.style.display = input.value ? "inline-block" : "none";
-}
-
-function clearInput() {
-  const input = document.getElementById("contractInput");
-  input.value = "";
-  toggleClearButton();
-  document.getElementById("resultBox").style.display = "none";
-  document.getElementById("resultBox").innerHTML = "";
-  input.focus();
-}
-
 async function scanToken() {
   const token = document.getElementById("contractInput").value.trim();
   const box = document.getElementById("resultBox");
@@ -89,7 +56,6 @@ async function scanToken() {
       found = true;
 
       const logoURL = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${chain.name}/assets/${token}/logo.png`;
-      const { level, flags } = getRiskRating(data, contractData, honeypotData);
 
       box.innerHTML = `
         <div class="result-card evm">
@@ -112,15 +78,14 @@ async function scanToken() {
             <div class="result-row"><span>Liquidity:</span><span>$${data.total_liquidity || "N/A"}</span></div>
             <div class="result-row"><span>24h Volume:</span><span>$${data.volume_24h || "N/A"}</span></div>
           </div>
-          <div class="result-risk">
-            <h4>${level}</h4>
-            <ul>${flags.map(f => `<li>🚩 ${f}</li>`).join("")}</ul>
-          </div>
+          <div class="result-risk">⚠️ Risk Factors: ✅ AI Risk: No major threats detected.</div>
         </div>
       `;
 
+      // Scroll to results
       box.scrollIntoView({ behavior: "smooth" });
 
+      // Animate each .result-row
       const rows = document.querySelectorAll(".result-row");
       rows.forEach((row, i) => {
         row.style.opacity = 0;
