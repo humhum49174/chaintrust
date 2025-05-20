@@ -18,12 +18,13 @@ async function scanToken() {
   const token = document.getElementById("contractInput").value.trim();
   const box = document.getElementById("resultBox");
   box.style.display = "block";
-  box.innerHTML = "🔄 Scanning...";
 
   if (!token) {
     box.innerHTML = "❗ Please enter a contract address.";
     return;
   }
+
+  box.innerHTML = "🔄 Scanning...";
 
   const tokenLC = token.toLowerCase();
   const baseURL = "https://api.gopluslabs.io/api/v1";
@@ -81,9 +82,9 @@ async function scanToken() {
             <div class="result-row"><span>Upgradeable:</span>${tag(c?.is_upgradable)}</div>
             <div class="result-row"><span>Self Destruct:</span>${tag(c?.selfdestruct)}</div>
             <div class="result-row"><span>Open Source:</span>${tag(d.is_open_source)}</div>
-            <div class="result-row"><span>Honeypot:</span>${tag(h?.is_honeypot === \"0\", \"No\", \"Yes\")}</div>
+            <div class="result-row"><span>Honeypot:</span>${tag(h?.is_honeypot === "0", "No", "Yes")}</div>
             <div class="result-row"><span>Approval Risk:</span>${tag(a?.is_approval_check_needed)}</div>
-            <div class="result-row"><span>Phishing:</span>${tag(p?.risk, \"Yes\", \"No\")}</div>
+            <div class="result-row"><span>Phishing:</span>${tag(p?.risk, "Yes", "No")}</div>
             <div class="result-row"><span>Price:</span><span>${dexData?.priceUsd ? `$${parseFloat(dexData.priceUsd).toFixed(6)}` : "N/A"}</span></div>
             <div class="result-row"><span>Liquidity:</span><span>${dexData?.liquidity?.usd ? `$${Math.round(dexData.liquidity.usd)}` : "N/A"}</span></div>
             <div class="result-row"><span>24h Volume:</span><span>${dexData?.volume?.h24 ? `$${Math.round(dexData.volume.h24)}` : "N/A"}</span></div>
