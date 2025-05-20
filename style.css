@@ -121,7 +121,7 @@ body::after {
   filter: drop-shadow(0 0 8px #00ffff);
 }
 
-/* === INPUT & BUTTON === */
+/* === INPUT === */
 input {
   padding: 14px;
   width: 90%;
@@ -140,12 +140,12 @@ input {
   transition: 0.3s ease;
 }
 
+/* === BUTTON === */
 .button-wrap {
   margin-top: 24px;
 }
 
 .clean-button {
-  display: inline-block;
   padding: 14px 30px;
   color: #00ffff;
   border: 2px solid #00ffff;
@@ -251,4 +251,3 @@ footer {
   input { font-size: 14px; padding: 12px; }
   .logo { width: 140px; }
 }
-
