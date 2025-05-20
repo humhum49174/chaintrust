@@ -9,61 +9,50 @@
 </head>
 <body>
 
+  <!-- 3D-Visualisierung -->
+  <script type="module" src="https://x.com/TrustChainAI@1.9.96/build/spline-viewer.js"></script>
+  <spline-viewer url="https://x.com/TrustChainAI"></spline-viewer>
+
   <div class="stars"></div>
 
+  <!-- Hauptbereich -->
   <div class="container">
     <img src="logo.png" alt="ChainTrust Logo" class="logo" />
 
-    <!-- Social Icons -->
+    <!-- Socials -->
     <div class="social-links">
-      <a href="#" class="social-btn"><img src="twitter.svg" alt="X"></a>
-      <a href="#" class="social-btn"><img src="telegram.svg" alt="Telegram"></a>
-      <a href="#" class="social-btn"><img src="discord.svg" alt="Discord"></a>
+      <a href="https://x.com/TrustChainAI" target="_blank" class="social-btn" aria-label="Twitter">
+        <img src="twitter.svg" alt="Twitter" />
+      </a>
+      <a href="https://t.me/TrustChainAI" target="_blank" class="social-btn" aria-label="Telegram">
+        <img src="telegram.svg" alt="Telegram" />
+      </a>
+      <a href="https://discord.gg/TrustChainAI" target="_blank" class="social-btn" aria-label="Discord">
+        <img src="discord.svg" alt="Discord" />
+      </a>
     </div>
 
     <h1>ChainTrust</h1>
     <p>Multichain Smart Contract Risk Scanner</p>
 
-    <!-- INPUT + CLEAR -->
-    <div class="input-wrapper">
-      <input id="contractInput" type="text" placeholder="Paste Token Contract Address" oninput="toggleClearButton()" />
-      <button id="clearBtn" class="clear-btn-text" onclick="clearInput()" style="display: none;">×</button>
-    </div>
+    <input type="text" id="contractInput" placeholder="Paste Token Contract Address" />
 
     <div class="button-wrap">
       <button class="clean-button" onclick="scanToken()">Scan Token</button>
     </div>
 
-    <div id="loadingSpinner" style="display:none;">
+    <!-- Spinner -->
+    <div id="loadingSpinner">
       <div class="spinner"></div>
     </div>
 
-    <div id="resultBox" class="result"></div>
+    <pre id="resultBox"></pre>
   </div>
 
   <footer>
     Powered by ChainTrust Security Engine | ChainTrust 2025
   </footer>
 
-  <script>
-    function toggleClearButton() {
-      const input = document.getElementById("contractInput");
-      const clearBtn = document.getElementById("clearBtn");
-      clearBtn.style.display = input.value.trim() ? "inline" : "none";
-    }
-
-    function clearInput() {
-      const input = document.getElementById("contractInput");
-      input.value = "";
-      document.getElementById("clearBtn").style.display = "none";
-      document.getElementById("resultBox").style.display = "none";
-      document.getElementById("resultBox").innerHTML = "";
-    }
-
-    function scanToken() {
-      // Hier kommt später dein Scan-Code mit API
-      alert("Scanning token...");
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
