@@ -35,7 +35,10 @@
     <h1>ChainTrust</h1>
     <p>Multichain Smart Contract Risk Scanner</p>
 
-    <input type="text" id="contractInput" placeholder="Paste Token Contract Address" />
+    <div class="input-group">
+      <input type="text" id="contractInput" placeholder="Paste Token Contract Address" />
+      <button class="clear-button" onclick="clearInput()">✖</button>
+    </div>
 
     <div class="button-wrap">
       <button class="clean-button" onclick="scanToken()">Scan Token</button>
