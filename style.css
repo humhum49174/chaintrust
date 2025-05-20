@@ -145,6 +145,17 @@ input {
   margin-top: 24px;
 }
 
+#clearButton {
+  height: 40px;
+  width: 40px;
+  font-size: 20px;
+  background-color: #444;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 .clean-button {
   padding: 14px 30px;
   color: #00ffff;
@@ -156,6 +167,21 @@ input {
   cursor: pointer;
   text-transform: uppercase;
   transition: all 0.3s ease;
+}
+
+.clean-button:hover {
+  background-color: #00ffff;
+  color: #000;
+  box-shadow: 0 0 12px #00ffffaa;
+}
+
+#loadingSpinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  display: none;
 }
 
 .clean-button:hover {
