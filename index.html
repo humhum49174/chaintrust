@@ -29,10 +29,10 @@
     <h1>ChainTrust</h1>
     <p>Multichain Smart Contract Risk Scanner</p>
 
-    <!-- Suchfeld mit Clear Button -->
-    <div class="input-row">
+    <!-- Input + Clear Button nebeneinander -->
+    <div class="input-wrapper">
       <input type="text" id="contractInput" placeholder="Paste Token Contract Address" oninput="toggleClearButton()" />
-      <button id="clearButton" onclick="clearInput()" style="display: none;">×</button>
+      <button id="clearButton" onclick="clearInput()">×</button>
     </div>
 
     <div class="button-wrap">
@@ -50,6 +50,22 @@
     Powered by ChainTrust Security Engine | ChainTrust 2025
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    function clearInput() {
+      document.getElementById('contractInput').value = '';
+      toggleClearButton();
+    }
+
+    function toggleClearButton() {
+      const input = document.getElementById('contractInput');
+      const button = document.getElementById('clearButton');
+      button.style.display = input.value ? 'block' : 'none';
+    }
+
+    function scanToken() {
+      // Deine Scan-Logik hier
+      alert('Scanning...');
+    }
+  </script>
 </body>
 </html>
