@@ -117,3 +117,20 @@ function clearInput() {
   resultBox.style.display = "none";
 }
 
+function clearInput() {
+  const input = document.getElementById("contractInput");
+  const resultBox = document.getElementById("resultBox");
+  const clearBtn = document.getElementById("clearBtn");
+
+  input.value = "";
+  resultBox.innerHTML = "";
+  resultBox.style.display = "none";
+  clearBtn.style.display = "none";
+}
+
+function toggleClearButton() {
+  const input = document.getElementById("contractInput");
+  const clearBtn = document.getElementById("clearBtn");
+
+  clearBtn.style.display = input.value.trim() ? "inline-block" : "none";
+}
