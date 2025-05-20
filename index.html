@@ -40,7 +40,7 @@
       <button class="clean-button" onclick="scanToken()">Scan Token</button>
     </div>
 
-    <!-- Loading Spinner + Result Box -->
+    <!-- Spinner + Result -->
     <div id="loadingSpinner" style="display:none;">
       <div class="spinner"></div>
     </div>
@@ -57,7 +57,7 @@
     function toggleClearButton() {
       const input = document.getElementById("contractInput");
       const clearBtn = document.getElementById("clearBtn");
-      clearBtn.style.display = input.value.trim() ? "inline-block" : "none";
+      clearBtn.style.display = input.value.trim() ? "inline-flex" : "none";
     }
 
     function clearInput() {
