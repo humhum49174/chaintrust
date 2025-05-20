@@ -123,45 +123,40 @@ body::after {
 }
 
 /* === INPUT & BUTTON === */
-input {
-  padding: 14px;
-  width: 90%;
-  max-width: 300px;
-  border-radius: 8px;
-  border: none;
-  background: linear-gradient(145deg, #0b1f33, #1a2f44);
-  color: #aefbff;
-  font-size: 15px;
-  text-align: center;
+.input-group {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
   margin-top: 20px;
-  box-shadow: 0 0 15px rgba(0, 204, 255, 0.2);
-  display: block;
+  gap: 0;
+  max-width: 320px;
   margin-left: auto;
   margin-right: auto;
-  transition: 0.3s ease;
 }
 
-.button-wrap {
-  margin-top: 24px;
+.input-group input {
+  flex: 1;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
-.clean-button {
-  padding: 14px 30px;
-  color: #00ffff;
+.clear-button {
   border: 2px solid #00ffff;
-  border-radius: 10px;
+  border-left: none;
   background: transparent;
-  font-weight: 600;
-  font-size: 15px;
-  cursor: pointer;
-  text-transform: uppercase;
+  color: #00ffff;
+  font-weight: bold;
+  padding: 0 14px;
+  font-size: 16px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
   transition: all 0.3s ease;
 }
 
-.clean-button:hover {
+.clear-button:hover {
   background-color: #00ffff;
   color: #000;
-  box-shadow: 0 0 12px #00ffffaa;
+  box-shadow: 0 0 10px #00ffffaa;
 }
 
 /* === SPINNER === */
