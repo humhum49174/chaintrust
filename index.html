@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ChainTrust</title>
+  <title>ChainTrust – Multichain Token Security Scanner</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="logo.png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta name="description" content="Scan any token on Ethereum, BSC, Polygon, and more for risks like honeypots, mint access, blacklists and contract vulnerabilities.">
 </head>
 <body>
 
@@ -15,11 +17,11 @@
 
   <div class="stars"></div>
 
-  <!-- Hauptbereich -->
+  <!-- Haupt-Content -->
   <div class="container">
     <img src="logo.png" alt="ChainTrust Logo" class="logo" />
 
-    <!-- Socials -->
+    <!-- Social Media Buttons -->
     <div class="social-links">
       <a href="https://x.com/TrustChainAI" target="_blank" class="social-btn" aria-label="Twitter">
         <img src="twitter.svg" alt="Twitter" />
@@ -41,16 +43,18 @@
       <button class="clean-button" onclick="scanToken()">Scan Token</button>
     </div>
 
-    <!-- Spinner -->
+    <!-- Spinner mit Text -->
     <div id="loadingSpinner">
       <div class="spinner"></div>
+      <p>Scanning across chains...</p>
     </div>
 
+    <!-- Ergebnisbox -->
     <pre id="resultBox"></pre>
   </div>
 
   <footer>
-    Powered by ChainTrust Security Engine | ChainTrust 2025
+    Powered by ChainTrust Security Engine &copy; 2025
   </footer>
 
   <script src="script.js"></script>
