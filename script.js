@@ -127,3 +127,9 @@ async function scanToken() {
     box.innerHTML = `<div class="result-card"><strong>❌ Token not found or no security data available.</strong></div>`;
   }
 }
+
+function clearInput() {
+  document.getElementById("contractInput").value = "";
+  document.getElementById("resultBox").style.display = "none";
+  document.getElementById("resultBox").innerHTML = "";
+}
